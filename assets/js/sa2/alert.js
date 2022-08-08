@@ -8,6 +8,7 @@ const keluar = $(".keluar").data("flashdata");
 const berhasil = $(".berhasil").data("flashdata");
 const belumLogin = $(".belumLogin").data("flashdata");
 const gagal = $(".gagal").data("flashdata");
+const gagal_simpan = $(".gagal_simpan").data("flashdata");
 
 if (pelanggan) {
 	Swal.fire({
@@ -136,5 +137,13 @@ if (belumLogin) {
 		title: belumLogin,
 		text: "Anda harus login terlebih dahulu!",
 		timer: 2000,
+	});
+}
+
+if (gagal_simpan) {
+	Swal.fire({
+		icon: "error",
+		title: "Coba Lagi",
+		text: "Gagal Simpan Data " + gagal_simpan +"!",
 	});
 }

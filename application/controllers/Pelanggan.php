@@ -26,32 +26,60 @@ class Pelanggan extends CI_Controller
 
     public function aksi_tambah()
     {
-        $data = array(
-            'id_member' => $this->input->post('id_member'),
-            'nama_member' => $this->input->post('nama_member'),
-            'alamat' => $this->input->post('alamat'),
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'tlp' => $this->input->post('tlp')
-        );
-        $this->m_crud->insert_data($data, 'tb_member');
-        $this->session->set_flashdata('pelanggan', 'Ditambahkan');
-        redirect($_SERVER['HTTP_REFERER']);
+        $this->form_validation->set_rules('nama_member', 'Nama', 'required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('tlp', 'Telepon', 'required|integer|max_length[15]');
+        if ($this->form_validation->run() != false) {
+            $data = array(
+                'nama_member' => $this->input->post('nama_member'),
+                'alamat' => $this->input->post('alamat'),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'tlp' => $this->input->post('tlp')
+            );
+            $this->m_crud->insert_data($data, 'tb_member');
+            $this->session->set_flashdata('pelanggan', 'Ditambahkan');
+            redirect(base_url('pelanggan'));
+        } else {
+            $data = array(
+                'judul' => "Pelanggan"
+            );
+            $data['member'] = $this->m_crud->get_data('id_member', 'tb_member')->result();
+            $this->session->set_flashdata('gagal_simpan', 'Pelanggan');
+            $this->load->view('template/header', $data);
+            $this->load->view('pelanggan', $data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function aksi_ubah()
     {
-        $where = array(
-            'id_member' => $this->input->post('id_member')
-        );
-        $data = array(
-            'nama_member' => $this->input->post('nama_member'),
-            'alamat' => $this->input->post('alamat'),
-            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-            'tlp' => $this->input->post('tlp')
-        );
-        $this->m_crud->update_data($where, $data, 'tb_member');
-        $this->session->set_flashdata('pelanggan', 'Diubah');
-        redirect($_SERVER['HTTP_REFERER']);
+        $this->form_validation->set_rules('nama_member', 'Nama', 'required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('tlp', 'Telepon', 'required|integer|max_length[15]');
+        if ($this->form_validation->run() != false) {
+            $where = array(
+                'id_member' => $this->input->post('id_member')
+            );
+            $data = array(
+                'nama_member' => $this->input->post('nama_member'),
+                'alamat' => $this->input->post('alamat'),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'tlp' => $this->input->post('tlp')
+            );
+            $this->m_crud->update_data($where, $data, 'tb_member');
+            $this->session->set_flashdata('pelanggan', 'Diubah');
+            redirect(base_url('pelanggan'));
+        } else {
+            $data = array(
+                'judul' => "Pelanggan"
+            );
+            $data['member'] = $this->m_crud->get_data('id_member', 'tb_member')->result();
+            $this->load->view('template/header', $data);
+            $this->load->view('pelanggan', $data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function hapus($id_member)

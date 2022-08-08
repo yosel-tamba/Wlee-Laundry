@@ -18,7 +18,7 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Nomor Telepon</th>
+                        <th scope="col">Telepon</th>
                         <th scope="col">Alamat</th>
                         <?php if ($this->session->userdata('role') == 'Admin') { ?>
                             <th scope="col" class="text-center">Action</th>
@@ -29,12 +29,19 @@
                     <?php
                     $no = 1;
                     foreach ($outlet as $m) {
+                        $kalimat = $m->alamat;
+                        $limit = 40;
+                        if (strlen($kalimat) > $limit) {
+                            $alamat = substr($kalimat, 0, $limit) . "...";
+                        } else {
+                            $alamat = $kalimat;
+                        }
                     ?>
                         <tr>
                             <td><?= $no++ ?></td>
                             <td><?= $m->nama; ?></td>
                             <td><?= $m->tlp; ?></td>
-                            <td><?= $m->alamat; ?></td>
+                            <td><?= $alamat ?></td>
                             <?php if ($this->session->userdata('role') == 'Admin') { ?>
                                 <td class="text-center">
                                     <a data-toggle="modal" data-target="#ubah<?= $m->id_outlet ?>" class="btn btn-warning btn-sm" title="Ubah"><i class="fas fa-pen"></i></a>
@@ -48,7 +55,7 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Nomor Telepon</th>
+                        <th scope="col">Telepon</th>
                         <th scope="col">Alamat</th>
                         <?php if ($this->session->userdata('role') == 'Admin') { ?>
                             <th scope="col" class="text-center">Action</th>
