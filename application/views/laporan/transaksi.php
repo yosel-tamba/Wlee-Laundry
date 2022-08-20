@@ -5,6 +5,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title><?= $title_pdf; ?></title>
+    <link rel="icon" href="<?= base_url('assets/img/wlee.png') ?>">
    <style>
       #table {
          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;

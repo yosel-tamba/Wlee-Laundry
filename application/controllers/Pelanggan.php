@@ -26,10 +26,10 @@ class Pelanggan extends CI_Controller
 
     public function aksi_tambah()
     {
-        $this->form_validation->set_rules('nama_member', 'Nama', 'required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('nama_member', 'Nama', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('tlp', 'Telepon', 'required|integer|max_length[15]');
+        $this->form_validation->set_rules('tlp', 'Telepon', 'required|numeric|integer|max_length[15]');
         if ($this->form_validation->run() != false) {
             $data = array(
                 'nama_member' => $this->input->post('nama_member'),
@@ -54,10 +54,10 @@ class Pelanggan extends CI_Controller
 
     public function aksi_ubah()
     {
-        $this->form_validation->set_rules('nama_member', 'Nama', 'required|alpha_numeric_spaces');
+        $this->form_validation->set_rules('nama_member', 'Nama', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('tlp', 'Telepon', 'required|integer|max_length[15]');
+        $this->form_validation->set_rules('tlp', 'Telepon', 'required|numeric|integer|max_length[15]');
         if ($this->form_validation->run() != false) {
             $where = array(
                 'id_member' => $this->input->post('id_member')
@@ -76,6 +76,7 @@ class Pelanggan extends CI_Controller
                 'judul' => "Pelanggan"
             );
             $data['member'] = $this->m_crud->get_data('id_member', 'tb_member')->result();
+            $this->session->set_flashdata('gagal_simpan', 'Pelanggan');
             $this->load->view('template/header', $data);
             $this->load->view('pelanggan', $data);
             $this->load->view('template/footer');
@@ -89,6 +90,6 @@ class Pelanggan extends CI_Controller
         );
         $this->m_crud->delete_data($where, 'tb_member');
         $this->session->set_flashdata('pelanggan', 'Dihapus');
-        redirect($_SERVER['HTTP_REFERER']);
+        redirect(base_url('pelanggan'));
     }
 }

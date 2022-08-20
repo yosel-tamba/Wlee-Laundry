@@ -1,6 +1,9 @@
 <?php if ($this->session->flashdata('pengguna')) { ?>
     <div class="pengguna" data-flashdata="<?= $this->session->flashdata('pengguna'); ?>"></div>
 <?php } ?>
+<?php if ($this->session->flashdata('gagal_simpan')) { ?>
+    <div class="gagal_simpan" data-flashdata="<?= $this->session->flashdata('gagal_simpan'); ?>"></div>
+<?php } ?>
 <div class="card shadow">
     <div class="card-header d-sm-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Data Pengguna</h6>
@@ -10,7 +13,7 @@
                     <i class="fas fa-filter"></i> Filter Data
                 </button>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                    <div class="dropdown-header">Role :</div>
+                    <div class="dropdown-header">Role</div>
                     <a class="dropdown-item" href="<?= base_url('filter/pengguna/Semua') ?>">Semua</a>
                     <a class="dropdown-item" href="<?= base_url('filter/pengguna/Admin') ?>">Admin</a>
                     <a class="dropdown-item" href="<?= base_url('filter/pengguna/Kasir') ?>">Kasir</a>
@@ -24,7 +27,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -93,41 +96,46 @@
             </div>
             <form method="post" action="<?= base_url('pengguna/aksi_tambah') ?>" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <?php if (!empty(validation_errors())) { ?>
+                        <div class="alert alert-danger font-italic font-weight-bold" role="alert">
+                            <?= validation_errors() ?>
+                        </div>
+                    <?php } ?>
                     <div class="row px-3">
                         <div class="col">
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="nama" class="col-formlabel">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama_user" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="nama" name="nama_user" autocomplete="off" value="<?= set_value('nama_user'); ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="username" class="col-formlabel">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="username" name="username" autocomplete="off" value="<?= set_value('username'); ?>">
                                 </div>
                                 <div class="col">
                                     <label for="password" class="col-formlabel">Password</label>
-                                    <input type="text" class="form-control" id="password" name="password" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="password" name="password" autocomplete="off" value="<?= set_value('password'); ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="id_outlet" class="col-formlabel">Outlet</label>
-                                    <select class="form-control" arialabel="Default select example" name="id_outlet">
-                                        <option selected>Pilih Outlet</option>
+                                    <select class="custom-select" arialabel="Default select example" name="id_outlet">
+                                        <option value="" disabled selected>Pilih Outlet</option>
                                         <?php foreach ($outlet as $row) { ?>
-                                            <option value="<?= $row->id_outlet ?>"><?= $row->nama ?></option>
+                                            <option value="<?= $row->id_outlet ?>" <?= set_value('id_outlet') == $row->id_outlet ? 'selected' : null ?>><?= $row->nama ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col">
                                     <label for="role" class="col-formlabel">Role</label>
-                                    <select class="form-control" arialabel="Default select example" name="role">
-                                        <option selected>Pilih Role</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Kasir">Kasir</option>
-                                        <option value="Owner">Owner</option>
+                                    <select class="custom-select" arialabel="Default select example" name="role">
+                                        <option value="" disabled selected>Pilih Role</option>
+                                        <option value="Admin" <?= set_value('role') == 'Admin' ? 'selected' : null ?>>Admin</option>
+                                        <option value="Kasir" <?= set_value('role') == 'Kasir' ? 'selected' : null ?>>Kasir</option>
+                                        <option value="Owner" <?= set_value('role') == 'Owner' ? 'selected' : null ?>>Owner</option>
                                     </select>
                                 </div>
                             </div>
@@ -143,8 +151,7 @@
 </div>
 
 <!-- Modal Ubah -->
-<?php $no = 1;
-foreach ($user as $row) : ?>
+<?php foreach ($user as $row) : ?>
     <div class="modal fade" id="ubah<?= $row->id_user ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -156,6 +163,11 @@ foreach ($user as $row) : ?>
                 </div>
                 <form method="post" action="<?= base_url('pengguna/aksi_ubah') ?>" enctype="multipart/form-data">
                     <div class="modal-body">
+                        <?php if (!empty(validation_errors())) { ?>
+                            <div class="alert alert-danger font-italic font-weight-bold" role="alert">
+                                <?= validation_errors() ?>
+                            </div>
+                        <?php } ?>
                         <div class="row px-3">
                             <div class="col">
                                 <div class="mb-3 row">
@@ -178,7 +190,7 @@ foreach ($user as $row) : ?>
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label for="id_outlet" class="col-formlabel">Outlet</label>
-                                        <select class="form-control" arialabel="Default select example" name="id_outlet">
+                                        <select class="custom-select" arialabel="Default select example" name="id_outlet">
                                             <?php foreach ($outlet as $o) { ?>
                                                 <option value="<?= $o->id_outlet ?>" <?= $row->id_outlet == $o->id_outlet ? 'selected' : null ?>><?= $o->nama ?></option>
                                             <?php } ?>
@@ -186,7 +198,7 @@ foreach ($user as $row) : ?>
                                     </div>
                                     <div class="col">
                                         <label for="role" class="col-formlabel">Role</label>
-                                        <select class="form-control" arialabel="Default select example" name="role">
+                                        <select class="custom-select" arialabel="Default select example" name="role">
                                             <option value="Admin" <?= $row->role == "Admin" ? 'selected' : null ?>>Admin</option>
                                             <option value="Kasir" <?= $row->role == "Kasir" ? 'selected' : null ?>>Kasir</option>
                                             <option value="Owner" <?= $row->role == "Owner" ? 'selected' : null ?>>Owner</option>

@@ -11,17 +11,14 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Jenis</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Nama Outlet</th>
-                        <?php if ($this->session->userdata('role') == 'Admin') { ?>
-                            <th scope="col" class="text-center">Aksi</th>
-                        <?php } ?>
+                        <th scope="col">Outlet</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,12 +36,6 @@
                                     <?= $m->id_outlet == $row->id_outlet ? $row->nama : null ?>
                                 <?php endforeach ?>
                             </td>
-                            <?php if ($this->session->userdata('role') == 'Admin') { ?>
-                                <td class="text-center">
-                                    <a data-toggle="modal" data-target="#ubah<?= $m->id_paket ?>" class="btn btn-warning btn-sm" title="Ubah"><i class="fas fa-pen"></i></a>
-                                    <a href="<?= base_url() . 'paket/hapus/' . $m->id_paket; ?>" class="btn btn-danger btn-sm tombol-hapus" title="Hapus Data"><i class="fa fa-fw fa-trash"></i></a>
-                                </td>
-                            <?php } ?>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -54,10 +45,7 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Jenis</th>
                         <th scope="col">Harga</th>
-                        <th scope="col">Nama Outlet</th>
-                        <?php if ($this->session->userdata('role') == 'Admin') { ?>
-                            <th scope="col" class="text-center">Aksi</th>
-                        <?php } ?>
+                        <th scope="col">Outlet</th>
                     </tr>
                 </thead>
             </table>

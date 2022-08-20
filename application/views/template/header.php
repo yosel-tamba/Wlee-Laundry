@@ -9,7 +9,35 @@
   <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
   <link href="<?= base_url('assets/css/sb-admin-2.min.css') ?>" rel="stylesheet">
   <link href="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link rel="icon" href="<?= base_url('assets/img/wlee.png') ?>">
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      border-radius: 5px;
+      background-color: #e6e6e6;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: #789afa;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #4e73df;
+    }
+
+    ::selection {
+      background-color: #4e73df;
+      background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -121,16 +149,18 @@
             <h3 class="mt-2 text-dark" style="font-weight: 500;"><?= $judul ?></h3>
           </form>
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link">
-                <span class="text-dark"><i class="fas fa-fw fa-user-cog mr-1"></i> Pengguna : <?= $this->session->userdata('nama_user') ?></span>
-              </a>
-            </li>
             <div class="topbar-divider d-none d-sm-block"></div>
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link tombol-keluar" href="<?= base_url('login/keluar') ?>">
-                <span class="text-danger"><i class="fas fa-sign-out-alt"></i> Keluar</span>
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 "><?= $this->session->userdata('nama_user') ?> </span>
+                <i class="fas fa-fw fa-user-cog"></i>
               </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item tombol-keluar" href="<?= base_url('login/keluar') ?>">
+                  <i class="fas fa-sign-out-alt fa-fw mr-2 text-gray-400"></i>
+                  Keluar
+                </a>
+              </div>
             </li>
           </ul>
         </nav>

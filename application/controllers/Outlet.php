@@ -25,29 +25,57 @@ class Outlet extends CI_Controller
 
     public function aksi_tambah()
     {
-        $data = array(
-            'nama' => $this->input->post('nama'),
-            'alamat' => $this->input->post('alamat'),
-            'tlp' => $this->input->post('tlp')
-        );
-        $this->m_crud->insert_data($data, 'tb_outlet');
-        $this->session->set_flashdata('outlet', 'Ditambahkan');
-        redirect($_SERVER['HTTP_REFERER']);
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('tlp', 'Telepon', 'required|numeric|integer|max_length[15]');
+        if ($this->form_validation->run() != false) {
+            $data = array(
+                'nama' => $this->input->post('nama'),
+                'alamat' => $this->input->post('alamat'),
+                'tlp' => $this->input->post('tlp')
+            );
+            $this->m_crud->insert_data($data, 'tb_outlet');
+            $this->session->set_flashdata('outlet', 'Ditambahkan');
+            redirect(base_url('outlet'));
+        } else {
+            $data = array(
+                'judul' => "Outlet"
+            );
+            $data['outlet'] = $this->m_crud->get_data('id_outlet', 'tb_outlet')->result();
+            $this->session->set_flashdata('gagal_simpan', 'Pelanggan');
+            $this->load->view('template/header', $data);
+            $this->load->view('outlet', $data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function aksi_ubah()
     {
-        $where = array(
-            'id_outlet' => $this->input->post('id_outlet')
-        );
-        $data = array(
-            'nama' => $this->input->post('nama'),
-            'alamat' => $this->input->post('alamat'),
-            'tlp' => $this->input->post('tlp')
-        );
-        $this->m_crud->update_data($where, $data, 'tb_outlet');
-        $this->session->set_flashdata('outlet', 'Diubah');
-        redirect($_SERVER['HTTP_REFERER']);
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('tlp', 'Telepon', 'required|numeric|integer|max_length[15]');
+        if ($this->form_validation->run() != false) {
+            $where = array(
+                'id_outlet' => $this->input->post('id_outlet')
+            );
+            $data = array(
+                'nama' => $this->input->post('nama'),
+                'alamat' => $this->input->post('alamat'),
+                'tlp' => $this->input->post('tlp')
+            );
+            $this->m_crud->update_data($where, $data, 'tb_outlet');
+            $this->session->set_flashdata('outlet', 'Diubah');
+            redirect(base_url('outlet'));
+        } else {
+            $data = array(
+                'judul' => "Outlet"
+            );
+            $data['outlet'] = $this->m_crud->get_data('id_outlet', 'tb_outlet')->result();
+            $this->session->set_flashdata('gagal_simpan', 'Pelanggan');
+            $this->load->view('template/header', $data);
+            $this->load->view('outlet', $data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function hapus($id_outlet)

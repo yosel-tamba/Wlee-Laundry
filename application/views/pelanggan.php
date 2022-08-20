@@ -13,7 +13,7 @@
                     <i class="fas fa-filter"></i> Filter Data
                 </button>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                    <div class="dropdown-header">Jenis Kelamin :</div>
+                    <div class="dropdown-header">Jenis Kelamin</div>
                     <a class="dropdown-item" href="<?= base_url('filter/pelanggan/Semua') ?>">Semua</a>
                     <a class="dropdown-item" href="<?= base_url('filter/pelanggan/Laki-Laki') ?>">Laki-Laki</a>
                     <a class="dropdown-item" href="<?= base_url('filter/pelanggan/Perempuan') ?>">Perempuan</a>
@@ -26,7 +26,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -119,8 +119,8 @@
                                 </div>
                                 <div class="col">
                                     <label for="jenis_kelamin" class="col-formlabel">Jenis Kelamin</label>
-                                    <select class="form-control" arialabel="Default select example" name="jenis_kelamin">
-                                        <option value="">-- Pilih Jenis Kelamin --</option>
+                                    <select class="custom-select" arialabel="Default select example" name="jenis_kelamin">
+                                        <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
                                         <option value="Laki-Laki" <?= set_value('jenis_kelamin') == 'Laki-Laki' ? 'selected' : null ?>>Laki-Laki</option>
                                         <option value="Perempuan" <?= set_value('jenis_kelamin') == 'Perempuan' ? 'selected' : null ?>>Perempuan</option>
                                     </select>
@@ -138,8 +138,7 @@
 </div>
 
 <!-- Modal Ubah -->
-<?php $no = 1;
-foreach ($member as $row) : ?>
+<?php foreach ($member as $row) : ?>
     <div class="modal fade" id="ubah<?= $row->id_member ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -176,7 +175,7 @@ foreach ($member as $row) : ?>
                                     </div>
                                     <div class="col">
                                         <label for="jenis_kelamin" class="col-formlabel">Jenis Kelamin</label>
-                                        <select class="form-control" arialabel="Default select example" name="jenis_kelamin">
+                                        <select class="custom-select" arialabel="Default select example" name="jenis_kelamin">
                                             <option value="Laki-Laki" <?= $row->jenis_kelamin == "Laki-Laki" ? 'selected' : null ?>>Laki-Laki</option>
                                             <option value="Perempuan" <?= $row->jenis_kelamin == "Perempuan" ? 'selected' : null ?>>Perempuan</option>
                                         </select>

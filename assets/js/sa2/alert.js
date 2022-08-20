@@ -99,7 +99,7 @@ $(".tombol-keluar").on("click", function (e) {
 	Swal.fire({
 		title: "Apakah anda yakin?",
 		text: "Ingin keluar dari aplikasi Wlee Laundry!",
-		icon: "warning",
+		icon: "question",
 		showCancelButton: true,
 		cancelButtonText: "Batal",
 		confirmButtonColor: "#3085d6",

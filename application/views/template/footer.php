@@ -1,9 +1,9 @@
         </div>
         </div>
-        <footer class="sticky-footer bg-white mt-5">
+        <footer class="sticky-footer bg-white mt-4">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    Full Made With <i class="fas fa-fw fa-heart"></i> by <strong>Yosel Mikoto</strong> 2021
+                    Full Made With <i class="fas fa-fw fa-heart text-primary"></i> by <strong class="text-primary">Yosel Mikoto</strong> 2021
                 </div>
             </div>
         </footer>

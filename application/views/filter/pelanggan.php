@@ -1,6 +1,3 @@
-<?php if ($this->session->flashdata('pelanggan')) { ?>
-    <div class="pelanggan" data-flashdata="<?= $this->session->flashdata('pelanggan'); ?>"></div>
-<?php } ?>
 <div class="card shadow">
     <div class="card-header d-sm-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Data Pelanggan</h6>
@@ -11,13 +8,13 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Nomor Telepon</th>
-                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Telepon</th>
+                        <th scope="col">Kelamin</th>
                         <th scope="col">Alamat</th>
                     </tr>
                 </thead>
@@ -46,8 +43,8 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Nomor Telepon</th>
-                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Telepon</th>
+                        <th scope="col">Kelamin</th>
                         <th scope="col">Alamat</th>
                     </tr>
                 </thead>

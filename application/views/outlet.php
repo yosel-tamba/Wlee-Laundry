@@ -1,6 +1,9 @@
 <?php if ($this->session->flashdata('outlet')) { ?>
     <div class="outlet" data-flashdata="<?= $this->session->flashdata('outlet'); ?>"></div>
 <?php } ?>
+<?php if ($this->session->flashdata('gagal_simpan')) { ?>
+    <div class="gagal_simpan" data-flashdata="<?= $this->session->flashdata('gagal_simpan'); ?>"></div>
+<?php } ?>
 <div class="card shadow">
     <div class="card-header d-sm-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Data Outlet</h6>
@@ -13,7 +16,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -79,22 +82,27 @@
             </div>
             <form method="post" action="<?= base_url('outlet/aksi_tambah') ?>" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <?php if (!empty(validation_errors())) { ?>
+                        <div class="alert alert-danger font-italic font-weight-bold" role="alert">
+                            <?= validation_errors() ?>
+                        </div>
+                    <?php } ?>
                     <div class="row px-3">
                         <div class="col">
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="nama" class="col-formlabel">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="nama" name="nama" autocomplete="off" value="<?= set_value('nama'); ?>">
                                 </div>
                                 <div class="col">
                                     <label for="tlp" class="col-formlabel">Nomor Telepon</label>
-                                    <input type="text" class="form-control" id="tlp" name="tlp" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="tlp" name="tlp" autocomplete="off" value="<?= set_value('tlp'); ?>">
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="alamat" class="col-formlabel">Alamat</label>
-                                    <textarea type="text" class="form-control" id="alamat" name="alamat" autocomplete="off" required></textarea>
+                                    <textarea type="text" class="form-control" id="alamat" name="alamat" autocomplete="off"><?= set_value('alamat'); ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -122,23 +130,28 @@ foreach ($outlet as $row) : ?>
                 </div>
                 <form method="post" action="<?= base_url('outlet/aksi_ubah') ?>" enctype="multipart/form-data">
                     <div class="modal-body">
+                        <?php if (!empty(validation_errors())) { ?>
+                            <div class="alert alert-danger font-italic font-weight-bold" role="alert">
+                                <?= validation_errors() ?>
+                            </div>
+                        <?php } ?>
                         <div class="row px-3">
                             <div class="col">
                                 <div class="mb-3 row">
                                     <input type="hidden" name="id_outlet" value="<?= $row->id_outlet ?>">
                                     <div class="col">
                                         <label for="nama" class="col-formlabel">Nama</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $row->nama ?>" autocomplete="off" required>
+                                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $row->nama ?>" autocomplete="off">
                                     </div>
                                     <div class="col">
                                         <label for="tlp" class="col-formlabel">Nomor Telepon</label>
-                                        <input type="text" class="form-control" id="tlp" name="tlp" value="<?= $row->tlp ?>" autocomplete="off" required>
+                                        <input type="text" class="form-control" id="tlp" name="tlp" value="<?= $row->tlp ?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <label for="alamat" class="col-formlabel">Alamat</label>
-                                        <textarea type="text" class="form-control" id="alamat" name="alamat" autocomplete="off" required><?= $row->alamat ?></textarea>
+                                        <textarea type="text" class="form-control" id="alamat" name="alamat" autocomplete="off"><?= $row->alamat ?></textarea>
                                     </div>
                                 </div>
                             </div>
