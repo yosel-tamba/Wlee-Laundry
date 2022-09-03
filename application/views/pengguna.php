@@ -91,7 +91,7 @@
             <div class="modal-header card-header px-4">
                 <h5 class="modal-title text-primary font-weight-bold" id="exampleModalLabel">Tambah Data Pengguna</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-primary">&times;</span>
                 </button>
             </div>
             <form method="post" action="<?= base_url('pengguna/aksi_tambah') ?>" enctype="multipart/form-data">
@@ -101,8 +101,22 @@
                             <?= validation_errors() ?>
                         </div>
                     <?php } ?>
-                    <div class="row px-3">
-                        <div class="col">
+                    <div class="row px-2">
+                        <div class="col-lg-4">
+                            <div class=" text-center ">
+                                <label for="nama">Foto Profil</label>
+                                <p>
+                                    <input accept="image/*" type='file' id="foto" name="foto" onchange="loadFile(event)" style="display: none;">
+                                </p>
+                                <span>
+                                    <img class="rounded-circle border border-secondary" id="output" width="200px" height="200px" src="<?= base_url('assets/img/foto_profil/user.png') ?>" />
+                                </span>
+                                <p>
+                                    <label for="foto" class="btn btn-info mt-2" style="cursor: pointer;">Unggah Foto</label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
                             <div class="mb-3 row">
                                 <div class="col">
                                     <label for="nama" class="col-formlabel">Nama</label>
@@ -151,14 +165,16 @@
 </div>
 
 <!-- Modal Ubah -->
-<?php foreach ($user as $row) : ?>
+<?php
+$no = 1;
+foreach ($user as $row) : ?>
     <div class="modal fade" id="ubah<?= $row->id_user ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header card-header px-4">
                     <h5 class="modal-title text-primary font-weight-bold" id="exampleModalLabel">Ubah Data Pengguna</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" class="text-primary">&times;</span>
                     </button>
                 </div>
                 <form method="post" action="<?= base_url('pengguna/aksi_ubah') ?>" enctype="multipart/form-data">
@@ -168,8 +184,23 @@
                                 <?= validation_errors() ?>
                             </div>
                         <?php } ?>
-                        <div class="row px-3">
-                            <div class="col">
+                        <div class="row px-2">
+                            <div class="col-lg-4">
+                                <div class=" text-center ">
+                                    <input type='hidden' name="foto_default" value="<?= $row->foto ?>">
+                                    <label for="nama">Foto Profil</label>
+                                    <!-- <p>
+                                        <input accept="image/*" type='file' id="foto1" name="foto" onchange="loadFile1(event)" style="display: none;">
+                                    </p> -->
+                                    <span>
+                                        <img class="rounded-circle border border-secondary" id="output1" width="200px" height="200px" src="<?= base_url('assets/img/foto_profil/') . $row->foto ?>" />
+                                    </span>
+                                    <!-- <p>
+                                        <label for="foto1" class="btn btn-info mt-2" style="cursor: pointer;">Unggah Foto</label>
+                                    </p> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
                                 <div class="mb-3 row">
                                     <input type="hidden" name="id_user" value="<?= $row->id_user ?>">
                                     <div class="col">
@@ -216,3 +247,16 @@
         </div>
     </div>
 <?php endforeach ?>
+
+<script type="text/javascript">
+    // Tambah
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+    // Ubah
+    // var loadFile1 = function(event) {
+    //     var output1 = document.getElementById('output1');
+    //     output1.src = URL.createObjectURL(event.target.files[0]);
+    // };
+</script>

@@ -87,7 +87,7 @@
             <div class="modal-header card-header px-4">
                 <h5 class="modal-title text-primary font-weight-bold" id="exampleModalLabel">Tambah Data Paket Cucian</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="text-primary">&times;</span>
                 </button>
             </div>
             <form method="post" action="<?= base_url('paket/aksi_tambah') ?>" enctype="multipart/form-data">
@@ -97,7 +97,7 @@
                             <?= validation_errors() ?>
                         </div>
                     <?php } ?>
-                    <div class="row px-3">
+                    <div class="row px-2">
                         <div class="col">
                             <div class="mb-3 row">
                                 <div class="col">
@@ -148,7 +148,7 @@ foreach ($paket as $row) : ?>
                 <div class="modal-header card-header px-4">
                     <h5 class="modal-title text-primary font-weight-bold" id="exampleModalLabel">Ubah Data Paket Cucian</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" class="text-primary">&times;</span>
                     </button>
                 </div>
                 <form method="post" action="<?= base_url('paket/aksi_ubah') ?>" enctype="multipart/form-data">
@@ -158,7 +158,7 @@ foreach ($paket as $row) : ?>
                                 <?= validation_errors() ?>
                             </div>
                         <?php } ?>
-                        <div class="row px-3">
+                        <div class="row px-2">
                             <div class="col">
                                 <div class="mb-3 row">
                                     <input type="hidden" name="id_paket" value="<?= $row->id_paket ?>">

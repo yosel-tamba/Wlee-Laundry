@@ -6,21 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nota</title>
     <link href="<?= base_url('assets/css/sb-admin-2.min.css'); ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css') ?>" rel="stylesheet" type="text/css">
     <link rel="icon" href="<?= base_url('assets/img/wlee.png') ?>">
 </head>
 
 <body class="text-dark">
-    <div class="mb-4 mt-5 text-center">
-        <h3>Wlee Laundry</h3>
-        <small>Jl. Siliwangi KM. 15, Manggahang, Kec.Baleendah, Bandung Jawa Barat 40375</small><br>
-        <small><strong>Tidak Ada Yang Tidak Bisa Kami Bersihkan</strong></small>
+    <div class="d-flex align-items-center mb-1 mt-4 text-decoration-none justify-content-center">
+        <div class="icon h1 mr-3">
+            <i class="fas fa-grin-tongue-wink"></i>
+        </div>
+        <h3 class="h2 font-weight-bold">Wlee Laundry</h3>
     </div>
-    <table>
-        <?php foreach ($transaksi as $row) {
+    <div class="mb-4 text-center">
+        Jl. Siliwangi KM. 15, Manggahang, Kec.Baleendah, Bandung Jawa Barat 40375
+    </div>
+    <div class="container">
+        <?php
+        $no = 1;
+        foreach ($transaksi as $row) {
             $harga_paket = 0;
             $qty = 0;
             $where = ['id_transaksi' => $row->id_transaksi];
-            $id_paket = $this->m_crud->edit_data($where, 'tb_detail_transaksi')->result();
+            $id_paket = $this->m_data->notaPaket($where)->result();
             foreach ($id_paket as $data) {
                 $qty = $data->qty;
                 $where = ['id_paket' => $data->id_paket];
@@ -34,187 +41,82 @@
             $harga_diskon = ($row->diskon / 100) * $harga_awal;
             $total_biaya = ceil($harga_awal - $harga_diskon);
         ?>
-            <div class="container mb-5">
-
-                <hr>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Nama Outlet</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->nama ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Nama Pengguna</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->nama_user ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Nama Pelanggan</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->nama_member ?></h5>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Kode Invoice</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->kode_invoice ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Tanggal Masuk</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->tgl ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Tanggal Bayar</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->tgl_bayar ?></h5>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Nama Paket</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <?php
-                        foreach ($id_paket as $ip) {
-                            $id[] = $ip->qty;
-                        }
-                        foreach ($paket as $value) {
-                            foreach ($value as $p) {
-                        ?>
-                                <h5 class="fw-normal">
-                                    <?= '- ' . $p->nama_paket ?>
-                                    <?php foreach ($id as $nilai) { ?>
-                                        <?= '- ' . $nilai ?>
-
-                            <?php
-                                    }
-                                }
-                            }
-                            ?>
-                                </h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Harga Paket</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal">Rp. <?= number_format($harga_paket) ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Pajak</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal">Rp. <?= number_format($row->pajak) ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Biaya Tambahan</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal">Rp. <?= number_format($row->biaya_tambahan) ?></h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5 class="fw-normal">Diskon</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5 class="fw-normal">:</h5>
-                    </div>
-                    <div class="col">
-                        <h5 class="fw-normal"><?= $row->diskon ?>% = Rp. <?= number_format(($row->diskon / 100) * $harga_awal) ?> </h5>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col text-right">
-                        <h5>Total Biaya</h5>
-                    </div>
-                    <div class="col text-center">
-                        <h5>:</h5>
-                    </div>
-                    <div class="col">
-                        <h5>Rp. <?= number_format($total_biaya) ?></h5>
-                    </div>
-                </div>
-                <br>
-                <div class="container text-center">
-                    <small>Terima Kasih Telah Menggunakan Jasa <strong>Wlee Laundry</strong> Kami.</small><br>
-                    <small>Kami Tunggu Kedantangan Anda Yang Berikutnya.</small>
-                </div>
+            <div class="d-flex justify-content-between align-items-end mb-3">
+                <table>
+                    <tr>
+                        <td>Kode Invoice</td>
+                        <td class="px-3">:</td>
+                        <td><?= $row->kode_invoice ?></td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td class="px-3">:</td>
+                        <td><?= $row->nama_member ?></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td>Tanggal Nota</td>
+                        <td class="px-3">:</td>
+                        <td><?= $row->tgl_bayar . ' (' . date('H:m:s') . ')' ?></td>
+                    </tr>
+                </table>
             </div>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Paket</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Sub Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php foreach ($id_paket as $paket) { ?>
+                        <tr>
+                            <th><?= $no++ ?></th>
+                            <td class="text-left"><?= $paket->nama_paket ?></td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <span>Rp.</span>
+                                    <label><?= number_format($paket->harga) ?></label>
+                                </div>
+                            </td>
+                            <td><?= $paket->qty ?></td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <span>Rp.</span>
+                                    <label><?= number_format($paket->qty * $paket->harga) ?></label>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    <tr>
+                        <th colspan="4" class="text-right">Diskon</th>
+                        <td class="text-right"><?= $row->diskon ?>%</td>
+                    </tr>
+                    <tr>
+                        <th colspan="4" class="text-right">Total Bayar</th>
+                        <th>
+                            <div class="d-flex justify-content-between">
+                                <span>Rp.</span>
+                                <label><?= number_format($total_biaya) ?></label>
+                            </div>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
         <?php } ?>
-    </table>
-    <script>
-        // window.print();
-    </script>
+        <div class="mt-5 text-center">
+            Tidak Ada Yang Tidak Bisa Kami Bershikan.<br>
+            <span class="font-weight-bold">Terima Kasih.</span>
+        </div>
+    </div>
 </body>
+<script>
+    window.print();
+</script>
 
 </html>

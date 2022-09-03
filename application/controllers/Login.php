@@ -1,6 +1,7 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-class Login extends CI_Controller {
+defined('BASEPATH') or exit('No direct script access allowed');
+class Login extends CI_Controller
+{
     public function index()
     {
         $this->load->view('login');
@@ -14,42 +15,51 @@ class Login extends CI_Controller {
             'password' => md5($password)
         );
         $this->load->model('m_login');
-        $cek = $this->m_login->cek_login('tb_user',$where)->num_rows();
-        if($cek > 0){
-            $data = $this->m_login->cek_login('tb_user',$where)->row();
+        $cek = $this->m_login->cek_login('tb_user', $where)->num_rows();
+        if ($cek > 0) {
+            $data = $this->m_login->cek_login('tb_user', $where)->row();
             $role = $data->role;
-            if ($role=='Admin') {
+            if ($role == 'Admin') {
                 $data_session = array(
                     'id' => $data->id_user,
                     'nama_user' => $data->nama_user,
                     'username' => $data->username,
+                    'password' => $data->passconf,
+                    'outlet' => $data->id_outlet,
                     'role' => $data->role,
+                    'foto' => $data->foto,
                     'status' => 'telah_login'
                 );
                 $this->session->set_userdata($data_session);
-                redirect(base_url().'dashboard');
-            }elseif ($role=='Kasir') {
+                redirect(base_url() . 'dashboard');
+            } elseif ($role == 'Kasir') {
                 $data_session = array(
                     'id' => $data->id_user,
                     'nama_user' => $data->nama_user,
                     'username' => $data->username,
+                    'password' => $data->passconf,
+                    'outlet' => $data->id_outlet,
                     'role' => $data->role,
+                    'foto' => $data->foto,
                     'status' => 'telah_login'
                 );
                 $this->session->set_userdata($data_session);
-                redirect(base_url().'dashboard');
-            }elseif ($role=='Owner') {
+                redirect(base_url() . 'dashboard');
+            } elseif ($role == 'Owner') {
                 $data_session = array(
                     'id' => $data->id_user,
                     'nama_user' => $data->nama_user,
                     'username' => $data->username,
+                    'password' => $data->passconf,
+                    'outlet' => $data->id_outlet,
                     'role' => $data->role,
+                    'foto' => $data->foto,
                     'status' => 'telah_login'
                 );
                 $this->session->set_userdata($data_session);
-                redirect(base_url().'dashboard');
+                redirect(base_url() . 'dashboard');
             }
-        }else{
+        } else {
             $this->session->set_flashdata('gagal', 'Gagal');
             redirect(base_url());
         }
@@ -58,7 +68,7 @@ class Login extends CI_Controller {
     public function keluar()
     {
         $this->session->sess_destroy();
-        redirect(base_url().'login/alert');
+        redirect(base_url() . 'login/alert');
     }
     public function alert()
     {

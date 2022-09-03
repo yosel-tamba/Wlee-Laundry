@@ -42,7 +42,6 @@ class M_data extends CI_Model
 			->join('tb_member', 'tb_member.id_member = tb_transaksi.id_member')
 			->join('tb_user', 'tb_user.id_user = tb_transaksi.id_user')
 			->join('tb_outlet', 'tb_outlet.id_outlet = tb_transaksi.id_outlet')
-			// ->join('tb_paket', 'tb_paket.harga = tb_transaksi.harga_paket')
 			->where($where)
 			->get();
 	}
@@ -59,5 +58,14 @@ class M_data extends CI_Model
 		$result = $this->db->get('tb_paket')->result();
 
 		return $result;
+	}
+
+	public function notaPaket($where)
+	{
+		$this->db->order_by('id_detail_transaksi', 'DESC');
+		return $this->db->from('tb_detail_transaksi')
+			->join('tb_paket', 'tb_paket.id_paket = tb_detail_transaksi.id_paket')
+			->where($where)
+			->get();
 	}
 }
