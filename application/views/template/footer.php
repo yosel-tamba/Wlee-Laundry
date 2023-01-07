@@ -91,14 +91,13 @@
         </div>
         <!-- End Modal -->
         <script type="text/javascript">
-            // Ubah
+            // Ubah Profil
             var loadFile2 = function(event) {
                 var output2 = document.getElementById('output2');
                 output2.src = URL.createObjectURL(event.target.files[0]);
             };
         </script>
 
-        <script src="<?= base_url('assets/js/calc.js') ?>"></script>
         <script src="<?= base_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/sa2/sweetalert2.all.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/sa2/alert.js') ?>"></script>
