@@ -63,14 +63,6 @@
                 </tr>
             <?php } ?>
         </tbody>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nama Outlet</th>
-                <th>Alamat</th>
-                <th>Telepon</th>
-            </tr>
-        </thead>
     </table>
 </body>
 

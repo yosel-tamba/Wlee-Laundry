@@ -28,11 +28,12 @@ class M_data extends CI_Model
 			->get();
 	}
 
-	public function get_detail_transaksi()
+	public function get_detail_transaksi($where)
 	{
 		$this->db->order_by('id_transaksi', 'DESC');
 		return $this->db->from('tb_transaksi')
 			->join('tb_member', 'tb_member.id_member = tb_transaksi.id_member')
+			->where($where)
 			->get();
 	}
 

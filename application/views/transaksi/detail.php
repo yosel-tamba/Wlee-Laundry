@@ -1,28 +1,3 @@
-<script>
-    // function startCalc() {
-    //     interval = setInterval("calc()", 1);
-    // }
-
-    // function calc() {
-    //     pajak = document.detail.pajak.value;
-    //     diskon = document.detail.diskon.value;
-    //     biaya_tambahan = document.detail.biaya_tambahan.value;
-    //     harga_paket = document.detail.harga_paket.value;
-    //     harga_awal = parseInt(harga_paket) + parseInt(pajak) + parseInt(biaya_tambahan);
-    //     harga_diskon = (parseInt(diskon) / 100) * parseInt(harga_awal);
-    //     total_biaya = parseInt(harga_awal) - parseInt(harga_diskon);
-    //     document.detail.total_biaya.value =
-    //         new Intl.NumberFormat('id-IN', {
-    //             style: 'currency',
-    //             currency: 'IDR',
-    //             minimumFractionDigits: 0,
-    //         }).format(total_biaya)
-    // }
-
-    // function stopCalc() {
-    //     clearInterval(interval);
-    // }
-</script>
 <?php $no = 1;
 foreach ($transaksi as $row) :
     $harga_paket = 0;
@@ -35,7 +10,6 @@ foreach ($transaksi as $row) :
         $detail = $this->m_crud->edit_data($where, 'tb_paket')->result();
         foreach ($detail as $p) {
             $harga_paket += $p->harga * $qty;
-            // var_dump($qty);
         }
     }
     $harga_awal = $harga_paket + $row->biaya_tambahan + $row->pajak;
@@ -128,7 +102,7 @@ foreach ($transaksi as $row) :
                                     $paket = $this->m_crud->edit_data($where_paket, 'tb_paket')->result();
                                     foreach ($paket as $p) {
                                     ?>
-                                        <option value="<?= base_url('transaksi/tambah_paket/') . $p->id_paket . "/" . $row->id_transaksi ?>"><?= $p->nama_paket ?></option>
+                                        <option class="d-flex justify-content-between" value="<?= base_url('transaksi/tambah_paket/') . $p->id_paket . "/" . $row->id_transaksi ?>"><?= $p->nama_paket ?> | Rp. <?= $p->harga ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -176,15 +150,14 @@ foreach ($transaksi as $row) :
                     <div class="col-lg-auto">
                         <div class="row d-flex align-items-center">
                             <div class="col-auto">
-                                <h3 for="total_biaya" class="col-formlabel">Total Biaya</h3>
+                                <h3 for="total_biaya" class="fw-bold">Total Biaya</h3>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control form-control-lg" id="total_biaya" name="total_biaya" value="Rp <?= number_format($total_biaya, 0, ",", ".") ?>" onchange="tryNumberFormat(this.form.thirdBox);" disabled>
+                                <input type="text" class="form-control fw-bold form-control-lg" id="total_biaya" name="total_biaya" value="Rp. <?= number_format($total_biaya, 0, ",", ".") ?>" disabled>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg text-right mt-1">
-
                         <a href="<?= base_url('transaksi/nota/' . $row->id_transaksi); ?>" target="blank" class="btn btn-danger"> Print Nota </a>
                         <input type="submit" class="btn btn-primary " value="Simpan Data">
                     </div>

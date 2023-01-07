@@ -65,15 +65,6 @@
                 </tr>
             <?php } ?>
         </tbody>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Jenis Kelamin</th>
-                <th>Telepon</th>
-            </tr>
-        </thead>
     </table>
 </body>
 

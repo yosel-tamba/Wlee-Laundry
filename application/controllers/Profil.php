@@ -18,7 +18,6 @@ class Profil extends CI_Controller
     {
         $this->form_validation->set_rules('nama_user', 'Nama', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]');
-        // $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
         $this->form_validation->set_rules('id_outlet', 'Outlet', 'required');
         if ($this->form_validation->run() != false) {
             if (isset($_FILES['foto']['name']) && $_FILES['foto']['name'] != '') {

@@ -69,15 +69,6 @@
                 </tr>
             <?php } ?>
         </tbody>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nama Paket</th>
-                <th>Jenis</th>
-                <th>Harga</th>
-                <th>ID Outlet</th>
-            </tr>
-        </thead>
     </table>
 </body>
 

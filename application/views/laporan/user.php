@@ -71,16 +71,6 @@
                 </tr>
             <?php } ?>
         </tbody>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nama Pengguna</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Role</th>
-                <th>Outlet</th>
-            </tr>
-        </thead>
     </table>
 </body>
 

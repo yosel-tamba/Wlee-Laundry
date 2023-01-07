@@ -87,7 +87,6 @@ class Filter extends CI_Controller
         $data['transaksi'] = $this->m_filter->transaksi($dari, $sampai)->result();
         $this->load->view('template/header', $data);
         $this->load->view('filter/transaksi', $data, $dari, $sampai);
-        $this->load->view('transaksi/detail', $data);
         $this->load->view('template/footer');
     }
 }
