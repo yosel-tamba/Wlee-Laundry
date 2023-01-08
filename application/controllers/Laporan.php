@@ -18,7 +18,7 @@ class Laporan extends CI_Controller
     {
         $this->load->library('pdfgenerator');
         $data['title_pdf'] = 'Laporan Pelanggan';
-        $file_pdf = 'laporan_pelanggan_';
+        $file_pdf = 'laporan_pelanggan';
         $paper = 'A4';
         $orientation = "portrait";
         if ($jenis_kelamin == "Semua") {
@@ -34,7 +34,7 @@ class Laporan extends CI_Controller
     {
         $this->load->library('pdfgenerator');
         $data['title_pdf'] = 'Laporan Outlet';
-        $file_pdf = 'laporan_outlet_';
+        $file_pdf = 'laporan_outlet';
         $paper = 'A4';
         $orientation = "portrait";
         $data['outlet'] = $this->m_crud->get_data('id_outlet', 'tb_outlet')->result();
@@ -46,7 +46,7 @@ class Laporan extends CI_Controller
     {
         $this->load->library('pdfgenerator');
         $data['title_pdf'] = 'Laporan Pengguna';
-        $file_pdf = 'laporan_pengguna_';
+        $file_pdf = 'laporan_pengguna';
         $paper = 'A4';
         $orientation = "portrait";
         if ($role == "Semua") {

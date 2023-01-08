@@ -30,7 +30,7 @@
         #table th {
             padding-top: 10px;
             padding-bottom: 10px;
-            text-align: left;
+            text-align: center;
             background-color: #4CAF50;
             color: white;
         }
